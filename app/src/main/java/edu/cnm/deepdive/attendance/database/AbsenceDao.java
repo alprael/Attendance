@@ -1,8 +1,6 @@
 package edu.cnm.deepdive.attendance.database;
 
-
 import android.arch.persistence.room.Dao;
-
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
@@ -11,43 +9,41 @@ import android.arch.persistence.room.Update;
 import java.util.List;
 
 @Dao
-public interface StudentDao {
+public interface AbsenceDao {
 
   @Insert(onConflict = OnConflictStrategy.FAIL)
-  long insert(Student student);
-
-
-  @Insert(onConflict = OnConflictStrategy.FAIL)
-  List<Long> insert(Student... students);
-
+  long insert(Absence absence);
 
   @Insert(onConflict = OnConflictStrategy.FAIL)
-  List<Long> insert(List<Student> students);
+  List<Long> insert (Absence... absences);
 
-  @Query("SELECT * FROM students ORDER BY last_name ASC, first_name ASC")
+  @Insert(onConflict = OnConflictStrategy.FAIL)
+  List<Long> insert(List<Absence> absences);
+
+  @Query("SELECT * FROM absences ORDER BY student_id ASC")
   List<Student> select();
 
-  @Query("SELECT * FROM students"
-      + " WHERE last_name LIKE :pattern OR first_name LIKE :pattern OR display_name  LIKE :pattern "
-      + "ORDER BY last_name ASC, first_name ASC")
+  @Query("SELECT * FROM absences"
+      + " WHERE student_id LIKE :pattern OR start LIKE :pattern OR `end`  LIKE :pattern "
+      + "ORDER BY student_id ASC")
   List<Student> select(String pattern);
 
   @Update(onConflict = OnConflictStrategy.FAIL)
-  int update(Student student);
+  int update(Absence absence);
 
   @Update(onConflict = OnConflictStrategy.FAIL)
-  int update(Student... students);
+  int update(Absence... absences);
 
   @Update(onConflict = OnConflictStrategy.FAIL)
-  int update(List<Student> students);
+  int update(List<Absence> absences);
 
   @Delete
-  int delete(Student student);
+  int delete(Absence absence);
 
   @Delete
-  int delete(Student... students);
+  int delete(Absence... absences);
 
   @Delete
-  int delete(List<Student> students);
+  int delete(List<Absence> absences);
 
 }

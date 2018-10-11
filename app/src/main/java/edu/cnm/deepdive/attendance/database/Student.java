@@ -30,7 +30,7 @@ public class Student {
   @NonNull
   @ColumnInfo(name = "display_name", collate = ColumnInfo.NOCASE)
   private String displayName;
-  
+
   @NonNull
   @ColumnInfo(name = "phone_number", index = true)
   private String phoneNumber;
